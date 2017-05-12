@@ -50,3 +50,14 @@ def validate_table(table):
         assert isinstance(k, basestring)
         assert len(v) == len(table.values()[0])
         for i in v: assert i
+
+if __name__ == "__main__":
+    table_data={
+        "result": ["yes", "no", "yes", "no"],
+        "arg1": ["left", "left", "right", "right"],
+        "arg2": ["down", "up", "down", "down"],
+        "arg3": ["no", "yes", "yes", "no"]
+    }
+    myTree=mine_c45(table_data, "result")
+    print myTree
+    print tree_to_rules(myTree)

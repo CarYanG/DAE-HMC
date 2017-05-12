@@ -164,9 +164,11 @@ def createTree(dataSet, labels):
     bestFeatLabel = labels[bestFeat]
     # 初始化myTree
     myTree = {bestFeatLabel: {}}
+
     # 注：labels列表是可变对象，在PYTHON函数中作为参数时传址引用，能够被全局修改
     # 所以这行代码导致函数外的同名变量被删除了元素，造成例句无法执行，提示'no surfacing' is not in list
     del(labels[bestFeat])
+
     # 取出最优列，然后它的branch做分类
     featValues = [example[bestFeat] for example in dataSet]
     uniqueVals = set(featValues)
@@ -190,13 +192,19 @@ def classify(inputTree, featLabels, testVec):
     """
     # 获取tree的根节点对于的key值
     firstStr = inputTree.keys()[0]
+
     # 通过key得到根节点对应的value
     secondDict = inputTree[firstStr]
+
     # 判断根节点名称获取根节点在label中的先后顺序，这样就知道输入的testVec怎么开始对照树来做分类
     featIndex = featLabels.index(firstStr)
+
+
     # 测试数据，找到根节点对应的label位置，也就知道从输入的数据的第几位来开始分类
     key = testVec[featIndex]
     valueOfFeat = secondDict[key]
+
+
     print '+++', firstStr, 'xxx', secondDict, '---', key, '>>>', valueOfFeat
     # 判断分枝是否结束: 判断valueOfFeat是否是dict类型
     if isinstance(valueOfFeat, dict):
@@ -238,6 +246,7 @@ if __name__ == "__main__":
     import copy
     myTree = createTree(myDat, copy.deepcopy(labels))
     print myTree
+    # storeTree(myTree,"myTree")
     # [1, 1]表示要取的分支上的节点位置，对应的结果值
     # print classify(myTree, labels, [1, 1])
 
